@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/files")
-public class FileRestService {
+public class FileRestController {
     private FileService fileService;
     private UserService userService;
 
     @Autowired
-    public FileRestService(FileService fileService, UserService userService) {
+    public FileRestController(FileService fileService, UserService userService) {
         this.fileService = fileService;
         this.userService = userService;
     }

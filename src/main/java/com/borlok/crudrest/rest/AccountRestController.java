@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
-public class AccountRestService {
+public class AccountRestController {
     private AccountService accountService;
     private UserService userService;
 
     @Autowired
-    public AccountRestService(AccountService accountService, UserService userService) {
+    public AccountRestController(AccountService accountService, UserService userService) {
         this.accountService = accountService;
         this.userService = userService;
     }
