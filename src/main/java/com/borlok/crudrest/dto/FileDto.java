@@ -3,7 +3,6 @@ package com.borlok.crudrest.dto;
 import com.borlok.crudrest.model.File;
 import com.borlok.crudrest.model.FileStatus;
 import com.borlok.crudrest.model.User;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class FileDto {
     private int id;

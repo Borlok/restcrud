@@ -21,6 +21,7 @@ public class UserRestController {
     private FileService fileService;
     private EventService eventService;
 
+    @Autowired
     public UserRestController(UserService userService,
                               AccountService accountService,
                               FileService fileService,

@@ -2,7 +2,6 @@ package com.borlok.crudrest.dto;
 
 import com.borlok.crudrest.model.Event;
 import com.borlok.crudrest.model.User;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class EventDto {
     private int id;

@@ -68,6 +68,7 @@ public class AccountDto {
     public String toString() {
         return "AccountDto{" +
                 "id=" + id +
+                ", user_id=" + user_id +
                 ", name='" + name + '\'' +
                 ", status='" + status + '\'' +
                 '}';
