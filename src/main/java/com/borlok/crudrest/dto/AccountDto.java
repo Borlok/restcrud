@@ -16,7 +16,8 @@ public class AccountDto {
     public Account toAccount (){
         Account account = new Account();
         account.setId(id);
-        account.setName(name);
+        if (!name.equals(""))
+            account.setName(name);
         account.setStatus(AccountStatus.valueOf(status));
         return account;
     }
