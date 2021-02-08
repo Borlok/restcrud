@@ -14,8 +14,8 @@ create table if not exists events
 create table if not exists accounts
 (
     id             serial primary key,
-    user_id        int,
-    name           varchar(50),
+    user_id        int UNIQUE,
+    name           varchar(50) DEFAULT 'UNNAMED',
     account_status varchar(20) default 'ACTIVE',
     foreign key (user_id) references users (id)
 );

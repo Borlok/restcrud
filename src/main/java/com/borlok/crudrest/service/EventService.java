@@ -21,19 +21,18 @@ public class EventService {
     }
 
     public Event create(Event event) {
-        eventRepository.save(event);
-        eventRepository.flush();
-        return event;
+        return eventRepository.save(event);
     }
 
     public Event getById(int id) {
-        List<Event> event = eventRepository.findAll();
-        System.out.println(event);
-        return event.get(0);
+        return eventRepository.getOne(id);
     }
 
     public List<Event> getAll() {
         return eventRepository.findAll();
     }
 
+    public void deleteById(Integer id) {
+        eventRepository.deleteById(id);
+    }
 }

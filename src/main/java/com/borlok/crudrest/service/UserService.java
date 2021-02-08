@@ -19,14 +19,14 @@ public class UserService {
     }
 
     public User create (User user) {
-        userRepository.save(user);
+        User returnedUser = userRepository.save(user);
+        System.out.println("Возвращаем при сохранении " + returnedUser);
         userRepository.flush();
-        return user;
+        return returnedUser;
     }
 
     public User getById(int id) {
-        User user = userRepository.getOne(id);
-        return user;
+        return userRepository.getOne(id);
     }
 
     public List<User> findAll() {
@@ -34,6 +34,6 @@ public class UserService {
     }
 
     public void deleteById(Integer id) {
-
+        userRepository.deleteById(id);
     }
 }

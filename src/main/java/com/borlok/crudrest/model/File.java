@@ -14,9 +14,12 @@ public class File {
     @Column(name = "file_status")
     private FileStatus fileStatus;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public File() {
+        id = 0;
+        fileStatus = FileStatus.DELETED;
     }
 
     public int getId() {

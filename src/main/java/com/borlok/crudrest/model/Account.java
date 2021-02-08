@@ -1,7 +1,5 @@
 package com.borlok.crudrest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,15 +8,19 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
+    @Column(name = "name")
     private String name;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "account_status")
     private AccountStatus status;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Account() {
+        id = 0;
+        name = "UNNAMED";
+        status = AccountStatus.ACTIVE;
     }
 
     public int getId() {

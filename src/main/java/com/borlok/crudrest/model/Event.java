@@ -1,11 +1,6 @@
 package com.borlok.crudrest.model;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "events")
@@ -16,9 +11,12 @@ public class Event {
     @Column(name = "name")
     private String name;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Event() {
+        id = 0;
+        name = "";
     }
 
     public int getId() {
