@@ -44,15 +44,23 @@ public class UserRestController {
 
     @PostMapping
     public UserDto create (@RequestBody UserDto userDto) {
-        System.out.println("Приходит из реквеста " + userDto);
         User user = userDto.toUser();
         Account account = new Account();
         if (userDto.getAccount_id() != 0)
             account = accountService.getById(userDto.getAccount_id());
         account.setUser(user);
         user.setAccount(account);
-        user.setFiles(userDto.getFile_ids().stream().map(x -> fileService.getById(x)).peek(x-> x.setUser(user)).collect(Collectors.toList()));
-        user.setEvents(userDto.getEvent_ids().stream().map(x -> eventService.getById(x)).peek(x-> x.setUser(user)).collect(Collectors.toList()));
+
+        user.setFiles(userDto.getFile_ids().stream()
+                .map(x -> fileService.getById(x))
+                .peek(x-> x.setUser(user))
+                .collect(Collectors.toList()));
+
+        user.setEvents(userDto.getEvent_ids().stream()
+                .map(x -> eventService.getById(x))
+                .peek(x-> x.setUser(user))
+                .collect(Collectors.toList()));
+
         return UserDto.fromUser(userService.create(user));
     }
 

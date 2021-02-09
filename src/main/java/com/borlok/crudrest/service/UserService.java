@@ -18,7 +18,6 @@ public class UserService {
 
     public User create (User user) {
         User returnedUser = userRepository.save(user);
-        System.out.println("Возвращаем при сохранении " + returnedUser);
         userRepository.flush();
         return returnedUser;
     }
