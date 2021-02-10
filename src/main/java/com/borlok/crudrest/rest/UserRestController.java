@@ -8,6 +8,7 @@ import com.borlok.crudrest.service.EventService;
 import com.borlok.crudrest.service.FileService;
 import com.borlok.crudrest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,16 +34,19 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('access:moderator')")
     public UserDto getById (@PathVariable Integer id) {
         return UserDto.fromUser(userService.getById(id));
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('access:moderator')")
     public List<UserDto> getAll () {
         return userService.findAll().stream().map(UserDto::fromUser).collect(Collectors.toList());
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('access:admin')")
     public UserDto create (@RequestBody UserDto userDto) {
         User user = userDto.toUser();
         Account account = new Account();
@@ -65,6 +69,7 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('access:admin')")
     public void deleteById (@PathVariable("id") Integer id) {
         userService.deleteById(id);
     }

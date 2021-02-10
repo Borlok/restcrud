@@ -1,12 +1,13 @@
 package com.borlok.crudrest.model;
 
-public enum  Permits {
-    AUTHORITY_READ("authority:read"),
-    AUTHORITY_WRITE("authority:write");
+public enum  Permit {
+    AUTHORITY_READ("access:user"),
+    AUTHORITY_WRITE("access:moderator"),
+    AUTHORITY_ALL("access:admin");
 
     private String permit;
 
-    Permits(String permit) {
+    Permit(String permit) {
         this.permit = permit;
     }
 
