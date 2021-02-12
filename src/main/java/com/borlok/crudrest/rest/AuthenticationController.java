@@ -1,15 +1,14 @@
 package com.borlok.crudrest.rest;
 
+import com.borlok.crudrest.dto.AuthenticationRequestDto;
 import com.borlok.crudrest.model.Access;
 import com.borlok.crudrest.repository.AccessRepository;
-import com.borlok.crudrest.security.JwtTokenException;
 import com.borlok.crudrest.security.JwtTokenProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -41,7 +40,6 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    @PreAuthorize("hasAuthority('access:user')")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             log.info(requestDto);

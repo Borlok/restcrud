@@ -1,4 +1,4 @@
-package com.borlok.crudrest.rest;
+package com.borlok.crudrest.dto;
 
 public class AuthenticationRequestDto {
     private String email;

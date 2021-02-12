@@ -1,7 +1,6 @@
 package com.borlok.crudrest.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.logging.log4j.LogManager;
@@ -9,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,10 +50,7 @@ public class JwtTokenProvider {
 
     public boolean validationToken(String token) {
         try {
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-            boolean isValid = !claimsJws.getBody().getExpiration().before(new Date());
-            log.info("Проверка валидности: " + isValid);
-            return isValid;
+            return  !Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getExpiration().before(new Date());
         } catch (JwtTokenException | IllegalArgumentException e) {
             throw new JwtTokenException("invalid token", HttpServletResponse.SC_FORBIDDEN);
         }
