@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-
 public class UserDetailsImpl implements UserDetails {
     private final String username;
     private final String password;
@@ -22,10 +21,6 @@ public class UserDetailsImpl implements UserDetails {
         this.password = password;
         this.authorities = authorities;
         this.isActive = isActive;
-    }
-
-    public boolean isActive() {
-        return isActive;
     }
 
     public static UserDetails fromAccess(Access access) {
@@ -77,7 +72,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String toString() {
-        return "SecurityUser{" +
+        return "UserDetailsImpl{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", authorities=" + authorities +
