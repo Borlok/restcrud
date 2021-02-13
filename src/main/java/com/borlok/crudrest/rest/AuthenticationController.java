@@ -42,14 +42,14 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
-            log.info(requestDto);
+            log.info("request to api/v1/auth/login");
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getEmail(),requestDto.getPassword()));
             Access user = accessRepository.findByEmail(requestDto.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
             String token = jwtTokenProvider.createToken(user.getEmail(), user.getRole().name());
             Map<Object, Object> response = new HashMap<>();
             response.put("email", requestDto.getEmail());
             response.put("token", token);
-
+            log.info("Token was create to email: " + requestDto.getEmail());
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
             return new ResponseEntity<>("invalid authentication", HttpStatus.FORBIDDEN);
@@ -60,5 +60,6 @@ public class AuthenticationController {
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
+        log.info("Security logout was complete");
     }
 }

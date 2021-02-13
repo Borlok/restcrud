@@ -1,7 +1,6 @@
 package com.borlok.crudrest.service;
 
 import com.borlok.crudrest.model.Event;
-import com.borlok.crudrest.model.User;
 import com.borlok.crudrest.repository.EventRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,42 +9,62 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventServiceTests {
+    @Spy
+    private EventService eventService;
+
+    @Mock
+    private EventRepository eventRepository;
 
     @Mock
     private Event event;
 
     @Mock
-    private Event returnedEvent;
+    private List<Event> events;
 
-    @Spy
-    private EventService eventService;
 
-    @Spy
-    private EventRepository eventRepository;
-
-    @Mock
-    private EventRepository eventRepository2;
 
     @Before
     public void setUp() {
-        when(event.getId()).thenReturn(1);
-        when(event.getName()).thenReturn("Miting");
-        when(eventRepository2.getOne(1)).thenReturn(returnedEvent);
-        when(returnedEvent.getId()).thenReturn(1);
-        when(returnedEvent.getName()).thenReturn("Miting");
+        int id = 1;
+        eventService = new EventService(eventRepository);
+
+        when(event.getName()).thenReturn("name");
+        when(eventRepository.getOne(id)).thenReturn(event);
+        when(eventRepository.save(event)).thenReturn(event);
+        when(eventRepository.findAll()).thenReturn(events);
 
     }
 
     @Test
+    public void notNullTest() {
+        assertNotNull(eventRepository);
+        assertNotNull(eventService);
+        assertNotNull(event);
+    }
+
+    @Test
     public void getEventById() {
-        Event event1 = eventRepository2.getOne(1);
-        System.out.println(event1.getName());
-        assertEquals(event.getName(), event1.getName());
+        assertNotNull(eventService.getById(1));
+        assertEquals("name",eventService.getById(1).getName());
+    }
+
+    @Test
+    public void getAll () {
+        assertNotNull(eventService.getAll());
+        assertEquals(events, eventService.getAll());
+    }
+
+    @Test
+    public void create() {
+        assertNotNull(eventService.create(event));
+        assertEquals(event, eventService.create(event));
     }
 
 }

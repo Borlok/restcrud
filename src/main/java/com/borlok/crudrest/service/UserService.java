@@ -16,6 +16,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public UserService() {
+    }
+
     public User create (User user) {
         User returnedUser = userRepository.save(user);
         userRepository.flush();
@@ -26,7 +29,7 @@ public class UserService {
         return userRepository.getOne(id);
     }
 
-    public List<User> findAll() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 

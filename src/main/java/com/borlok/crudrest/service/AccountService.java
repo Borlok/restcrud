@@ -16,6 +16,9 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
+    public AccountService() {
+    }
+
     public Account create(Account account) {
         Account returnedAccount = accountRepository.save(account);
         accountRepository.flush();

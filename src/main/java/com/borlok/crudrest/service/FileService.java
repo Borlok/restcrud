@@ -16,6 +16,9 @@ public class FileService {
         this.fileRepository = fileRepository;
     }
 
+    public FileService() {
+    }
+
     public File create(File file) {
         File returnedFile = fileRepository.save(file);
         fileRepository.flush();

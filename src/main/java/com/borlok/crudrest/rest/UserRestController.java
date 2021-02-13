@@ -7,6 +7,8 @@ import com.borlok.crudrest.service.AccountService;
 import com.borlok.crudrest.service.EventService;
 import com.borlok.crudrest.service.FileService;
 import com.borlok.crudrest.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ public class UserRestController {
     private AccountService accountService;
     private FileService fileService;
     private EventService eventService;
+    private Logger log = LogManager.getLogger(this);
 
     @Autowired
     public UserRestController(UserService userService,
@@ -36,18 +39,21 @@ public class UserRestController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('access:moderator')")
     public UserDto getById (@PathVariable Integer id) {
+        log.info("Get user with id: " + id);
         return UserDto.fromUser(userService.getById(id));
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('access:moderator')")
     public List<UserDto> getAll () {
-        return userService.findAll().stream().map(UserDto::fromUser).collect(Collectors.toList());
+        log.info("Get all users");
+        return userService.getAll().stream().map(UserDto::fromUser).collect(Collectors.toList());
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('access:admin')")
     public UserDto create (@RequestBody UserDto userDto) {
+        log.info("Create new user");
         User user = userDto.toUser();
         Account account = new Account();
         if (userDto.getAccount_id() != 0)
@@ -64,13 +70,14 @@ public class UserRestController {
                 .map(x -> eventService.getById(x))
                 .peek(x-> x.setUser(user))
                 .collect(Collectors.toList()));
-
+        log.info("New user was making");
         return UserDto.fromUser(userService.create(user));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('access:admin')")
     public void deleteById (@PathVariable("id") Integer id) {
+        log.info("Delete user with id: " + id);
         userService.deleteById(id);
     }
 }

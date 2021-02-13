@@ -1,7 +1,5 @@
 package com.borlok.crudrest.security;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -17,9 +15,7 @@ import java.io.IOException;
 
 @Component
 public class JwtTokenFilter extends GenericFilterBean {
-
     private JwtTokenProvider jwtTokenProvider;
-    private Logger log = LogManager.getLogger(this);
 
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -28,7 +24,6 @@ public class JwtTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
-        log.info("TOKEN " + token);
         try {
             if (token != null && jwtTokenProvider.validationToken(token)) {
                 Authentication authentication = jwtTokenProvider.getAuthentication(token);
