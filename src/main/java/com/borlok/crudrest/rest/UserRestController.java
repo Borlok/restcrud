@@ -53,7 +53,7 @@ public class UserRestController {
     @PostMapping
     @PreAuthorize("hasAuthority('access:admin')")
     public UserDto create (@RequestBody UserDto userDto) {
-        log.info("Create new user");
+        log.info("Creating a new user");
         User user = userDto.toUser();
         Account account = new Account();
         if (userDto.getAccount_id() != 0)

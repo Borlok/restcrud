@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/Borlok/restcrud.svg?branch=master)](https://travis-ci.com/Borlok/restcrud)
 REST API, которое взаимодействует с файловым хранилищем AWS S3 и предоставляет возможность получать доступ к файлам и истории загрузок.
 
 Сущности:
@@ -20,4 +21,4 @@ MODERATOR - добавление и удаление файлов
 
 USER - только чтение всех данных кроме User + Account
 
-Технологии: Java, MySQL, Spring (IoC, Data, Security), AWS SDK, MySQL, Travis, Docker, JUnit, Mockito, Maven
+Технологии: Java, MySQL, Spring (IoC, Data, Security), AWS SDK, Travis, Docker, JUnit, Mockito, Maven

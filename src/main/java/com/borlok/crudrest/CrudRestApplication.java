@@ -1,5 +1,6 @@
 package com.borlok.crudrest;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

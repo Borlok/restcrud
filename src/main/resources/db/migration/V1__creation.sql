@@ -31,10 +31,10 @@ create table if not exists files
 create table if not exists access
 (
     id         int auto_increment primary key,
-    email      varchar(50)  not null,
+    email      varchar(50)  not null UNIQUE,
     first_name varchar(50)  not null,
     last_name  varchar(50)  not null,
     password   varchar(255) not null,
     role       varchar(20)  not null default 'USER',
     status     varchar(20)  not null default 'ACTIVE'
-)
+);
